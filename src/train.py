@@ -7,7 +7,7 @@ import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
 from torch.utils.data import DataLoader
 
-from dataset import FashionMNIST, get_transforms, load_data
+from dataset import FashionMNIST, load_data
 from model import ConvNet
 
 
@@ -106,16 +106,16 @@ def main():
     set_seed(seed=seed)
 
     # Data
-    X_train, X_valid, X_test, y_train, y_valid = load_data(
+    X_train, X_valid, X_test, y_train, y_valid, y_test = load_data(
         train_path=train_path, test_path=test_path
     )
 
-    # Data augmentations
-    data_transforms = get_transforms()
+    # Data augmentations (Having problems with torchvision on my pc -> skipping for now)
+    # data_transforms = get_transforms()
 
     # Define datasets
-    train_dataset = FashionMNIST(X=X_train, y=y_train, transform=data_transforms)
-    valid_dataset = FashionMNIST(X=X_valid, y=y_valid, transform=data_transforms)
+    train_dataset = FashionMNIST(X=X_train, y=y_train)
+    valid_dataset = FashionMNIST(X=X_valid, y=y_valid)
     test_dataset = FashionMNIST(X=X_test)
 
     # Define dataloaders
