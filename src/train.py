@@ -96,8 +96,8 @@ def main():
     linear2_size = 128
     dropout_rate = 0.25
     verbose = True
-    train_path = "src/fashion-mnist_train.csv"
-    test_path = "src/fashion-mnist_test.csv"
+    train_path = "data/fashion-mnist_train.csv"
+    test_path = "data/fashion-mnist_test.csv"
     debug = True
 
     # GPU if available
@@ -164,7 +164,7 @@ def main():
             "optimiser_state_dict": optimiser.state_dict(),
             "scheduler_state_dict": scheduler.state_dict(),
         },
-        "trained_convnet_v1.pt",
+        "models/trained_convnet_v1.pt",
     )
 
 
