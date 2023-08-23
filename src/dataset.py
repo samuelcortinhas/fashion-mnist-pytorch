@@ -1,10 +1,9 @@
+import numpy as np
+import pandas as pd
 import torch
+from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset
 from torchvision import transforms
-import pandas as pd
-import numpy as np
-
-from sklearn.model_selection import train_test_split
 
 
 def load_data(train_path, test_path):

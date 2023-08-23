@@ -1,12 +1,12 @@
+import random
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-
-import numpy as np
-import random
 
 
 # Random seeds
