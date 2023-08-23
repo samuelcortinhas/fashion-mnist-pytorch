@@ -98,6 +98,7 @@ def main():
     verbose = True
     train_path = "src/fashion-mnist_train.csv"
     test_path = "src/fashion-mnist_test.csv"
+    debug = True
 
     # GPU if available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -107,7 +108,7 @@ def main():
 
     # Data
     X_train, X_valid, X_test, y_train, y_valid, y_test = load_data(
-        train_path=train_path, test_path=test_path
+        train_path=train_path, test_path=test_path, debug=debug
     )
 
     # Data augmentations (Having problems with torchvision on my pc -> skipping for now)
@@ -166,5 +167,6 @@ def main():
         "trained_convnet_v1.pt",
     )
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
