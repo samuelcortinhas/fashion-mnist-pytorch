@@ -185,15 +185,16 @@ def main():
         run.finish()
 
     # Save model
-    torch.save(
-        {
-            "epoch": cfg["n_epochs"],
-            "model_state_dict": model.state_dict(),
-            "optimiser_state_dict": optimiser.state_dict(),
-            "scheduler_state_dict": scheduler.state_dict(),
-        },
-        "models/trained_convnet_v1.pt",
-    )
+    if cfg["save_model"]:
+        torch.save(
+            {
+                "epoch": cfg["n_epochs"],
+                "model_state_dict": model.state_dict(),
+                "optimiser_state_dict": optimiser.state_dict(),
+                "scheduler_state_dict": scheduler.state_dict(),
+            },
+            "models/trained_convnet_v1.pt",
+        )
 
 
 if __name__ == "__main__":
