@@ -13,5 +13,6 @@
     "test_path": "data/fashion-mnist_test.csv",
     "debug": true,
     "logging": true,
-    "save_model": false
+    "save_model": false,
+    "save_model_name": "trained_convnet_v1"
 }
