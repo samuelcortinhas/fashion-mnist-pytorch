@@ -27,6 +27,7 @@ def load_data(train_path, test_path, debug=False):
         X, y, train_size=0.9, test_size=0.1, random_state=0
     )
 
+    # For testing purposes
     if debug == True:
         n_sample = 200
         X_train = X_train[:n_sample]

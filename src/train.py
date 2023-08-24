@@ -170,3 +170,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# To do next:
+# Add logging with wandb
+# Parse CLI arguments or config file or both (maybe cfg for model architecture and cli for training args)
+# Add unit tests using torch.testing
+# Add evaluation.ipynb to make some plots and calc. metrics
+# Add route to fastapi app for model inference - test locally
+# Add docs and examples to readme
