@@ -14,5 +14,6 @@
     "debug": true,
     "logging": true,
     "save_model": false,
-    "save_model_name": "trained_convnet_v1"
+    "save_model_name": "trained_convnet_v1",
+    "inference_model_name": "trained_convnet_v1"
 }
