@@ -130,7 +130,6 @@ def main():
     # Define datasets
     train_dataset = FashionMNIST(X=X_train, y=y_train)
     valid_dataset = FashionMNIST(X=X_valid, y=y_valid)
-    test_dataset = FashionMNIST(X=X_test)
 
     # Define dataloaders
     train_loader = DataLoader(
@@ -138,9 +137,6 @@ def main():
     )
     valid_loader = DataLoader(
         dataset=valid_dataset, batch_size=cfg["batch_size"], shuffle=False
-    )
-    test_loader = DataLoader(
-        dataset=test_dataset, batch_size=cfg["batch_size"], shuffle=False
     )
 
     # Model
