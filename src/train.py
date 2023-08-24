@@ -1,4 +1,5 @@
 import json
+import os
 import random
 
 import numpy as np
@@ -6,14 +7,19 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
+import wandb
+from dotenv import load_dotenv
 from torch.utils.data import DataLoader
 
 from dataset import FashionMNIST, load_data
 from model import ConvNet
 
+# Load environment variables
+load_dotenv()
+
 
 def train(
-    args,
+    cfg,
     model,
     device,
     train_loader,
@@ -51,6 +57,14 @@ def train(
             # Track loss
             loss = L.detach().item()
 
+            # Logging
+            if cfg["logging"]:
+                wandb.log({"loss": loss})
+
+        # Logging
+        if cfg["logging"]:
+            wandb.log({"learning_rate": scheduler.get_lr(), "epoch": epoch})
+
         # Update learning rate
         scheduler.step()
 
@@ -71,6 +85,8 @@ def train(
 
                 # Track loss
                 val_loss = val_L.item()
+                if cfg["logging"]:
+                    wandb.log({"val_loss": val_loss})
 
         # Print loss
         if verbose:
@@ -87,8 +103,15 @@ def set_seed(seed=0):
 
 
 def main():
+    # Configuration
     with open("config.json", "r") as f:
         cfg = json.load(f)
+
+    if cfg["logging"]:
+        # Sign-in
+        api_key = os.environ["WANDB_API_KEY"]
+        wandb_entity = os.environ["WANDB_ENTITY"]
+        wandb.login(key=api_key)
 
     # GPU if available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -134,6 +157,15 @@ def main():
     optimiser = optim.Adam(params=model.parameters(), lr=cfg["learning_rate"])
     scheduler = lr_scheduler.CosineAnnealingLR(optimiser, T_max=cfg["n_epochs"])
 
+    # Start run
+    if cfg["logging"]:
+        run = wandb.init(
+            entity=wandb_entity,
+            project="fashion-mnist-pytorch",
+            config=cfg,
+            save_code=True,
+        )
+
     # Train model
     train(
         args=None,
@@ -147,6 +179,10 @@ def main():
         n_epochs=cfg["n_epochs"],
         verbose=cfg["verbose"],
     )
+
+    # End run
+    if cfg["logging"]:
+        run.finish()
 
     # Save model
     torch.save(

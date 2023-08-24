@@ -11,5 +11,6 @@
     "verbose": true,
     "train_path": "data/fashion-mnist_train.csv",
     "test_path": "data/fashion-mnist_test.csv",
-    "debug": true
+    "debug": true,
+    "logging": true
 }
