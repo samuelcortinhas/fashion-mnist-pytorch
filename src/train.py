@@ -7,10 +7,10 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.optim.lr_scheduler as lr_scheduler
-import wandb
 from dotenv import load_dotenv
 from torch.utils.data import DataLoader
 
+import wandb
 from dataset import FashionMNIST, load_data
 from model import ConvNet
 
@@ -63,7 +63,7 @@ def train(
 
         # Logging
         if cfg["logging"]:
-            wandb.log({"learning_rate": scheduler.get_lr(), "epoch": epoch})
+            wandb.log({"learning_rate": scheduler.get_lr()[0], "epoch": epoch})
 
         # Update learning rate
         scheduler.step()
@@ -168,7 +168,7 @@ def main():
 
     # Train model
     train(
-        args=None,
+        cfg=cfg,
         model=model,
         device=device,
         train_loader=train_loader,
@@ -200,8 +200,6 @@ if __name__ == "__main__":
     main()
 
 # To do next:
-# Add logging with wandb
-# Parse CLI arguments or config file or both (maybe cfg for model architecture and cli for training args)
 # Add unit tests using torch.testing
 # Add evaluation.ipynb to make some plots and calc. metrics
 # Add route to fastapi app for model inference - test locally
