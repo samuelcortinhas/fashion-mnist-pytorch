@@ -193,7 +193,7 @@ def main():
                 "optimiser_state_dict": optimiser.state_dict(),
                 "scheduler_state_dict": scheduler.state_dict(),
             },
-            "models/trained_convnet_v1.pt",
+            f"models/{cfg['save_model_name']}.pt",
         )
 
 
@@ -205,3 +205,4 @@ if __name__ == "__main__":
 # Add evaluation.ipynb to make some plots and calc. metrics
 # Add route to fastapi app for model inference - test locally
 # Add docs and examples to readme
+# Add terraform for deployment
