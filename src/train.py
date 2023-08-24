@@ -195,10 +195,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# To do next:
-# Add unit tests using torch.testing
-# Add evaluation.ipynb to make some plots and calc. metrics
-# Add route to fastapi app for model inference - test locally
-# Add docs and examples to readme
-# Add terraform for deployment
