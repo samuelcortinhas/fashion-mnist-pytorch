@@ -1,0 +1,19 @@
+{
+    "seed": 42,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "n_epochs": 5,
+    "conv1_channels": 64,
+    "conv2_channels": 128,
+    "linear1_size": 256,
+    "linear2_size": 128,
+    "dropout_rate": 0.35,
+    "verbose": true,
+    "train_path": "data/fashion-mnist_train.csv",
+    "test_path": "data/fashion-mnist_test.csv",
+    "debug": false,
+    "logging": true,
+    "save_model": true,
+    "save_model_name": "trained_convnet_v2",
+    "inference_model_name": "trained_convnet_v2"
+}
