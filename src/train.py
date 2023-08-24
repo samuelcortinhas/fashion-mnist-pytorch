@@ -63,7 +63,7 @@ def train(
 
         # Logging
         if cfg["logging"]:
-            wandb.log({"learning_rate": scheduler.get_lr()[0], "epoch": epoch})
+            wandb.log({"learning_rate": scheduler.get_last_lr()[0], "epoch": epoch})
 
         # Update learning rate
         scheduler.step()

@@ -35,6 +35,7 @@ classes = [
     "9 Ankle boot",
 ]
 
+
 @app.post("/predict")
 async def predict(imgs: Request):
     preds = inference(model, imgs)
