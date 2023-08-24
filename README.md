@@ -2,7 +2,7 @@
 
 This project trains a PyTorch model to classify images from the fashion mnist dataset ([link](https://github.com/zalandoresearch/fashion-mnist)). The dataset comprises fo 60,000 grayscale images of size 28x28, each corresponding to one of 10 classes.
 
-The model is a Convolutional Neural Network (CNN) with customisable parameters. 
+The model is a Convolutional Neural Network (CNN) with customisable parameters. The training code can be found in the `src` folder, with trained models saved in the `models` folder. This application can be deployed using the attached Dockerfile and FastAPI app in the `app` folder. 
 
 <img width="800" alt="Screenshot 2023-08-24 at 17 49 07" src="https://github.com/samuelcortinhas/fashion-mnist-pytorch/assets/128174954/6304de39-3061-4036-844f-f4c72eee7e5c">
 
