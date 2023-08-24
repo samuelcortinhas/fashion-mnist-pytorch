@@ -1,3 +1,4 @@
+import json
 import random
 
 import numpy as np
@@ -86,29 +87,18 @@ def set_seed(seed=0):
 
 
 def main():
-    seed = 0
-    batch_size = 64
-    learning_rate = 0.001
-    n_epochs = 10
-    conv1_channels = 64
-    conv2_channels = 128
-    linear1_size = 256
-    linear2_size = 128
-    dropout_rate = 0.25
-    verbose = True
-    train_path = "data/fashion-mnist_train.csv"
-    test_path = "data/fashion-mnist_test.csv"
-    debug = True
+    with open("config.json", "r") as f:
+        cfg = json.load(f)
 
     # GPU if available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Reproducibility
-    set_seed(seed=seed)
+    set_seed(seed=cfg["seed"])
 
     # Data
     X_train, X_valid, X_test, y_train, y_valid, y_test = load_data(
-        train_path=train_path, test_path=test_path, debug=debug
+        train_path=cfg["train_path"], test_path=cfg["test_path"], debug=cfg["debug"]
     )
 
     # Data augmentations (Having problems with torchvision on my pc -> skipping for now)
@@ -121,26 +111,28 @@ def main():
 
     # Define dataloaders
     train_loader = DataLoader(
-        dataset=train_dataset, batch_size=batch_size, shuffle=True
+        dataset=train_dataset, batch_size=cfg["batch_size"], shuffle=True
     )
     valid_loader = DataLoader(
-        dataset=valid_dataset, batch_size=batch_size, shuffle=False
+        dataset=valid_dataset, batch_size=cfg["batch_size"], shuffle=False
     )
-    test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
+    test_loader = DataLoader(
+        dataset=test_dataset, batch_size=cfg["batch_size"], shuffle=False
+    )
 
     # Model
     model = ConvNet(
-        conv1_channels=conv1_channels,
-        conv2_channels=conv2_channels,
-        linear1_size=linear1_size,
-        linear2_size=linear2_size,
-        dropout_rate=dropout_rate,
+        conv1_channels=cfg["conv1_channels"],
+        conv2_channels=cfg["conv2_channels"],
+        linear1_size=cfg["linear1_size"],
+        linear2_size=cfg["linear2_size"],
+        dropout_rate=cfg["dropout_rate"],
     )
 
     # Define loss, optimiser and scheduler
     criterion = nn.CrossEntropyLoss()
-    optimiser = optim.Adam(params=model.parameters(), lr=learning_rate)
-    scheduler = lr_scheduler.CosineAnnealingLR(optimiser, T_max=n_epochs)
+    optimiser = optim.Adam(params=model.parameters(), lr=cfg["learning_rate"])
+    scheduler = lr_scheduler.CosineAnnealingLR(optimiser, T_max=cfg["n_epochs"])
 
     # Train model
     train(
@@ -152,14 +144,14 @@ def main():
         criterion=criterion,
         optimiser=optimiser,
         scheduler=scheduler,
-        n_epochs=n_epochs,
-        verbose=verbose,
+        n_epochs=cfg["n_epochs"],
+        verbose=cfg["verbose"],
     )
 
     # Save model
     torch.save(
         {
-            "epoch": n_epochs,
+            "epoch": cfg["n_epochs"],
             "model_state_dict": model.state_dict(),
             "optimiser_state_dict": optimiser.state_dict(),
             "scheduler_state_dict": scheduler.state_dict(),
